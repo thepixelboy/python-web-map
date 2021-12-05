@@ -5,13 +5,14 @@ map = folium.Map(
 )
 fg = folium.FeatureGroup(name="My Map")
 
-fg.add_child(
-    folium.Marker(
-        location=[38.2, -99.1],
-        popup="Hi, I'm a marker",
-        icon=folium.Icon(color="green"),
+for coordinates in [[38.2, -99.1], [39.2, -97.1]]:
+    fg.add_child(
+        folium.Marker(
+            location=coordinates,
+            popup="Hi, I'm a marker",
+            icon=folium.Icon(color="green"),
+        )
     )
-)
 
 map.add_child(fg)
 map.save("Map1.html")
