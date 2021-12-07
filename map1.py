@@ -8,10 +8,20 @@ name = list(data["NAME"])
 elevation = list(data["ELEV"])
 html = """
 <div class="container" style="font-family:sans-serif;">
-<a href="https://www.google.com/search?q=%%22%s%%22" target="_blank"><strong>%s</strong></a><br />
+<a href="https://www.google.com/search?q=%%22%s%%22%%20volcano" target="_blank"><strong>%s</strong></a><br />
 Height: %s m
 </div>
 """
+
+
+def set_color(elevation):
+    if elevation > 3000:
+        return "red"
+    elif 2000 < elevation < 3000:
+        return "orange"
+
+    return "green"
+
 
 map = folium.Map(
     location=[38.58, -99.09], zoom_start=6, tiles="Stamen Terrain"
@@ -25,7 +35,7 @@ for lat, lon, ele, nam in zip(latitude, longitude, elevation, name):
         folium.Marker(
             location=[lat, lon],
             popup=folium.Popup(iframe),
-            icon=folium.Icon(color="green"),
+            icon=folium.Icon(color=set_color(ele)),
         )
     )
 
