@@ -26,12 +26,14 @@ def set_color(elevation):
 map = folium.Map(
     location=[38.58, -99.09], zoom_start=6, tiles="Stamen Terrain"
 )
-fg = folium.FeatureGroup(name="My Map")
+
+fg_volcanos = folium.FeatureGroup(name="Volcanos")
+fg_world_population = folium.FeatureGroup(name="World Population")
 
 
 for lat, lon, ele, nam in zip(latitude, longitude, elevation, name):
     iframe = folium.IFrame(html=html % (nam, nam, ele), width=200, height=100)
-    fg.add_child(
+    fg_volcanos.add_child(
         # folium.Marker(
         #     location=[lat, lon],
         #     popup=folium.Popup(iframe),
@@ -48,7 +50,7 @@ for lat, lon, ele, nam in zip(latitude, longitude, elevation, name):
         )
     )
 
-fg.add_child(
+fg_world_population.add_child(
     folium.GeoJson(
         data=open("world.json", "r", encoding="utf-8-sig").read(),
         style_function=lambda x: {
@@ -61,5 +63,7 @@ fg.add_child(
     )
 )
 
-map.add_child(fg)
+map.add_child(fg_volcanos)
+map.add_child(fg_world_population)
+map.add_child(folium.LayerControl())
 map.save("Map1.html")
