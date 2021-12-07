@@ -32,10 +32,19 @@ fg = folium.FeatureGroup(name="My Map")
 for lat, lon, ele, nam in zip(latitude, longitude, elevation, name):
     iframe = folium.IFrame(html=html % (nam, nam, ele), width=200, height=100)
     fg.add_child(
-        folium.Marker(
+        # folium.Marker(
+        #     location=[lat, lon],
+        #     popup=folium.Popup(iframe),
+        #     icon=folium.Icon(color=set_color(ele)),
+        # )
+        folium.CircleMarker(
             location=[lat, lon],
             popup=folium.Popup(iframe),
-            icon=folium.Icon(color=set_color(ele)),
+            color=set_color(ele),
+            fill_color=set_color(ele),
+            fill=True,
+            fill_opacity=0.5,
+            radius=10,
         )
     )
 
